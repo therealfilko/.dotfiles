@@ -72,7 +72,7 @@ local function config(_config)
                 filter = function(code_action)
                     if not code_action or not code_action.data then
                         return false
-                    end
+                 end
 
                     local data = code_action.data.id
                     return string.sub(data, #data - 1, #data) == ":0"
@@ -109,6 +109,8 @@ require('lspconfig').emmet_ls.setup{
         },
     },
 }
+
+require'lspconfig'.tailwindcss.setup{}
 
 require("lspconfig").sumneko_lua.setup {
   settings = {
