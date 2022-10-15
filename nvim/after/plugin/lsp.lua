@@ -110,6 +110,8 @@ require('lspconfig').emmet_ls.setup{
     },
 }
 
+require'lspconfig'.ltex.setup{}
+
 require'lspconfig'.tailwindcss.setup{}
 
 require("lspconfig").sumneko_lua.setup {

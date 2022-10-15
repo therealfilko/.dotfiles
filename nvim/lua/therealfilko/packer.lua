@@ -17,6 +17,7 @@ return require("packer").startup(function()
 
     -- All the things
     use("neovim/nvim-lspconfig")
+    use("williamboman/mason.nvim")
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/nvim-cmp")
@@ -28,7 +29,6 @@ return require("packer").startup(function()
     use("saadparwaiz1/cmp_luasnip")
 
     -- Primeagen doesn"t create lodash
-    use("ThePrimeagen/git-worktree.nvim")
     use("ThePrimeagen/harpoon")
 
     use("mbbill/undotree")
