@@ -86,6 +86,10 @@ local function config(_config)
 	}, _config or {})
 end
 
+require'lspconfig'.groovyls.setup{
+    cmd = { "java", "-jar", "groovy-language-server-all.jar" },
+}
+
 require("lspconfig").tsserver.setup(config())
 
 require("lspconfig").cssls.setup(config())
