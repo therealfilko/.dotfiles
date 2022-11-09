@@ -1,4 +1,4 @@
-vim.g.therealfilko_colorscheme = "tokyonight"
+vim.g.therealfilko_colorscheme = "gruvbox"
 
 function ColorMyPencils()
     vim.g.gruvbox_contrast_dark = 'hard'
