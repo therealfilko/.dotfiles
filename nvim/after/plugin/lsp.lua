@@ -90,6 +90,8 @@ require'lspconfig'.groovyls.setup{
     cmd = { "java", "-jar", "groovy-language-server-all.jar" },
 }
 
+require("lspconfig").astro.setup(config())
+
 require("lspconfig").tsserver.setup(config())
 
 require("lspconfig").cssls.setup(config())
@@ -114,7 +116,7 @@ require('lspconfig').emmet_ls.setup{
     },
 }
 
-require'lspconfig'.ltex.setup{}
+--require'lspconfig'.ltex.setup{}
 
 require'lspconfig'.tailwindcss.setup{}
 
