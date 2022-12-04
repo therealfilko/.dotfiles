@@ -4,7 +4,22 @@ return require("packer").startup(function()
 
     -- Simple plugins can be specified as strings
     use("TimUntersberger/neogit")
-
+    -- Lua
+    use {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup {
+                window = {
+                    backdrop = 0.95,
+                    width = 120,
+                    height = 1,
+                },
+                plugins = {
+                    tmux = { enabled = false },
+                },
+            }
+        end
+    } 
     -- TJ created lodash of neovim
     use("nvim-lua/plenary.nvim")
     use("nvim-lua/popup.nvim")

@@ -90,7 +90,15 @@ require'lspconfig'.groovyls.setup{
     cmd = { "java", "-jar", "groovy-language-server-all.jar" },
 }
 
-require("lspconfig").astro.setup(config())
+require('lspconfig').tailwindcss.setup{
+    cmd = { "tailwindcss-language-server", "--stdio" },
+    filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
+}
+
+require("lspconfig").astro.setup{
+    cmd = { "astro-ls", "--stdio" },
+    filetype = { "astro" }
+}
 
 require("lspconfig").tsserver.setup(config())
 
@@ -98,7 +106,7 @@ require("lspconfig").cssls.setup(config())
 
 require('lspconfig').emmet_ls.setup{
     cmd = { "emmet-ls", "--stdio" },
-    filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "php" },
+    filetypes = { "astro", "astro-markdown", "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "php" },
     opts = {
         settings = {
             html = {
