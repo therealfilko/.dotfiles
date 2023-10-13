@@ -13,6 +13,31 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+
+  use({
+	  'blazkowolf/gruber-darker.nvim',
+	  as = 'gruber-darker',
+	  config = function()
+		  vim.cmd('colorscheme gruber-darker')
+	  end
+  })
+
+  use({
+	  'ellisonleao/gruvbox.nvim',
+	  as = 'gruvbox',
+	  config = function()
+		  vim.cmd('colorscheme gruvbox')
+	  end
+  })
+
+  use({
+	  'olivercederborg/poimandres.nvim',
+	  as = 'poimandres',
+	  config = function()
+		  vim.cmd('colorscheme poimandres')
+	  end
+  })
+
   use({
 	  'rose-pine/neovim',
 	  as = 'rose-pine',
@@ -22,7 +47,7 @@ return require('packer').startup(function(use)
   })
 
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use 'lervag/vimtex'
+  use('lervag/vimtex')
   use('nvim-treesitter/playground')
   use('theprimeagen/harpoon')
   use('mbbill/undotree')

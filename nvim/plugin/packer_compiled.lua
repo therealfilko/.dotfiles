@@ -114,6 +114,18 @@ _G.packer_plugins = {
     path = "/Users/filipnikolic/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
+  gruber = {
+    config = { "\27LJ\2\n6\0\1\4\0\3\0\0056\1\0\0009\1\1\1'\3\2\0B\1\2\1K\0\1\0\23colorscheme gruber\bcmd\bvim\0" },
+    loaded = true,
+    path = "/Users/filipnikolic/.local/share/nvim/site/pack/packer/start/gruber",
+    url = "https://github.com/blazkowolf/gruber-darker.nvim"
+  },
+  gruvbox = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme gruvbox\bcmd\bvim\0" },
+    loaded = true,
+    path = "/Users/filipnikolic/.local/share/nvim/site/pack/packer/start/gruvbox",
+    url = "https://github.com/ellisonleao/gruvbox.nvim"
+  },
   harpoon = {
     loaded = true,
     path = "/Users/filipnikolic/.local/share/nvim/site/pack/packer/start/harpoon",
@@ -164,6 +176,12 @@ _G.packer_plugins = {
     path = "/Users/filipnikolic/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  poimandres = {
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\27colorscheme poimandres\bcmd\bvim\0" },
+    loaded = true,
+    path = "/Users/filipnikolic/.local/share/nvim/site/pack/packer/start/poimandres",
+    url = "https://github.com/olivercederborg/poimandres.nvim"
+  },
   ["rose-pine"] = {
     config = { "\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0" },
     loaded = true,
@@ -198,6 +216,18 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: poimandres
+time([[Config for poimandres]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\27colorscheme poimandres\bcmd\bvim\0", "config", "poimandres")
+time([[Config for poimandres]], false)
+-- Config for: gruvbox
+time([[Config for gruvbox]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme gruvbox\bcmd\bvim\0", "config", "gruvbox")
+time([[Config for gruvbox]], false)
+-- Config for: gruber
+time([[Config for gruber]], true)
+try_loadstring("\27LJ\2\n6\0\1\4\0\3\0\0056\1\0\0009\1\1\1'\3\2\0B\1\2\1K\0\1\0\23colorscheme gruber\bcmd\bvim\0", "config", "gruber")
+time([[Config for gruber]], false)
 -- Config for: rose-pine
 time([[Config for rose-pine]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
