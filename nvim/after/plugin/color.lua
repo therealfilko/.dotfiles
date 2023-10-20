@@ -1,7 +1,4 @@
 -- Themes
-rose = "rose-pine"
-gruvbox = "gruvbox"
-poimandres = "poimandres"
 gruber = "gruber-darker"
 
 function ColorMyPencils(color)
