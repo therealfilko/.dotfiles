@@ -4,7 +4,7 @@ require("therealfilko.lazy")
 --local gruber = "gruber-darker"
 --local catppuccin = "catppuccin"
 --local tokyonight = "tokyonight"
-local gruvbox = "gruvbox"
+local gruvbox = "gruvbox-material"
 
 function ColorDeezNutz(color)
     color = color or gruvbox

@@ -106,6 +106,35 @@ return {
       on_attach = on_attach,
     })
 
+    -- Konfiguration des Tailwind CSS Language Servers
+    lspconfig.tailwindcss.setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {
+        tailwindCSS = {
+              validate = true, -- Aktiviert die Validierung
+          lint = {
+            cssConflict = "warning", -- Konflikte in CSS als Warnungen anzeigen
+            invalidApply = "error", -- Ungültige @apply Direktiven als Fehler anzeigen
+            invalidConfigPath = "error", -- Ungültige Konfigurationspfade als Fehler anzeigen
+            invalidScreen = "error", -- Ungültige @screen Direktiven als Fehler anzeigen
+            invalidTailwindDirective = "error", -- Ungültige Tailwind-Direktiven als Fehler anzeigen
+            invalidVariant = "error", -- Ungültige Varianten als Fehler anzeigen
+            recommendedVariantOrder = "warning" -- Empfohlene Reihenfolge der Varianten als Warnung anzeigen
+          },
+          experimental = {
+            classRegex = {
+              'tw`([^`]*)', -- Für `tw`-template literals
+              'tw="([^"]*)', -- Für `tw="..."` in JSX
+              'tw={"([^"}]*)', -- Für `tw={...}` in JSX
+              'tw\\.([^\\s\'"]*)', -- Für `tw.xxx` in JSX
+              'tw\\(.*?\\)', -- Für Funktionen `tw(...)`
+            },
+          },
+        }
+      }
+    })
+
 
     -- configure lua server (with special settings)
     lspconfig["lua_ls"].setup({

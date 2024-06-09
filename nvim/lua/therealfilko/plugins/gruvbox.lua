@@ -1,3 +1,3 @@
 return {
-    "morhetz/gruvbox",
+    "sainnhe/gruvbox-material",
 }
