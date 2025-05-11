@@ -8,15 +8,15 @@ config.hide_tab_bar_if_only_one_tab = true
 
 -- Theme
 config.color_scheme = 'rose-pine'
-config.window_background_opacity = 0.88
+config.window_background_opacity = 0.85
 config.colors = {
     background = "rgba(0,0,0,1)",
 }
 
 -- Typographie
-config.font = wezterm.font 'GeistMono Nerd Font'
-config.font =
-wezterm.font('GeistMono Nerd Font', { weight = 'Regular', italic = false })
-config.font_size = 21.0
+config.font_size = 22.0
+config.max_fps = 120
+config.front_end = "WebGpu"
+
 
 return config

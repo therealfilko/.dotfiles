@@ -11,7 +11,7 @@ fi
 
 # Argument oder interaktive Auswahl eines Verzeichnisses
 if [[ -z "$1" ]]; then
-  selected=$(find ~/personal/studium ~/personal ~/personal/Github ~/personal/Bitbucket -mindepth 1 -maxdepth 1 -type d | $fzf_path)
+  selected=$(find ~/personal/studium ~/personal/studium/Softwaretechnik/ ~/personal ~/personal/Github ~/personal/Bitbucket -mindepth 1 -maxdepth 1 -type d | $fzf_path)
 else
   selected=$1
 fi

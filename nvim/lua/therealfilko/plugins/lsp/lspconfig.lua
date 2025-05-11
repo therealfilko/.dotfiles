@@ -93,9 +93,21 @@ return {
       capabilities = capabilities,
       on_attach = on_attach,
     })
+        --
+    -- configure ruff-lsp 
+    lspconfig["ruff_lsp"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
 
     -- configure css server
     lspconfig["cssls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
+    -- configure pyright server
+    lspconfig["pyright"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
