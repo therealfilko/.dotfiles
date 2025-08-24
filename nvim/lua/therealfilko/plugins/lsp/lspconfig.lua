@@ -118,6 +118,12 @@ return {
       on_attach = on_attach,
     })
 
+    -- configure marksman server
+    lspconfig["marksman"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+
     -- Konfiguration des Tailwind CSS Language Servers
     lspconfig.tailwindcss.setup({
       capabilities = capabilities,
