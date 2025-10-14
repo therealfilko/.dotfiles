@@ -6,166 +6,111 @@ return {
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
-
-    -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-    local keymap = vim.keymap -- for conciseness
-
+    local keymap = vim.keymap
     local opts = { noremap = true, silent = true }
+
     local on_attach = function(client, bufnr)
       opts.buffer = bufnr
-
-      -- set keybinds
       opts.desc = "Show LSP references"
-      keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+      keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
 
       opts.desc = "Go to declaration"
-      keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+      keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 
       opts.desc = "Show LSP definitions"
-      keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+      keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
       opts.desc = "Show LSP implementations"
-      keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+      keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
       opts.desc = "Show LSP type definitions"
-      keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+      keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
       opts.desc = "See available code actions"
-      keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+      keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
       opts.desc = "Smart rename"
-      keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+      keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
       opts.desc = "Show buffer diagnostics"
-      keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+      keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
       opts.desc = "Show line diagnostics"
-      keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+      keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
 
       opts.desc = "Go to previous diagnostic"
-      keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+      keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 
       opts.desc = "Go to next diagnostic"
-      keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+      keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
       opts.desc = "Show documentation for what is under cursor"
-      keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+      keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
       opts.desc = "Restart LSP"
-      keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+      keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
     end
 
-    -- used to enable autocompletion (assign to every lsp server config)
+    -- capabilities for nvim-cmp
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
+    -- gutter signs
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-    -- configure html server
-    lspconfig["html"].setup({
+    local default_opts = {
       capabilities = capabilities,
       on_attach = on_attach,
-    })
+    }
 
-    -- configure golang server with plugin
-    lspconfig["gopls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
+    vim.lsp.config("html", default_opts)
+    vim.lsp.config("gopls", default_opts)
+    vim.lsp.config("clangd", default_opts)
+    vim.lsp.config("ts_ls", default_opts)
+    vim.lsp.config("pyright", default_opts)
+    vim.lsp.config("ruff", default_opts)
+    vim.lsp.config("cssls", default_opts)
+    vim.lsp.config("marksman", default_opts)
+    vim.lsp.config("templ", default_opts)
 
-    -- configure golang server with plugin
-    lspconfig["clangd"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure typescript server with plugin
-    lspconfig["tsserver"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-        --
-    -- configure ruff-lsp 
-    lspconfig["ruff_lsp"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure css server
-    lspconfig["cssls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure pyright server
-    lspconfig["pyright"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure css server
-    lspconfig["templ"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure marksman server
-    lspconfig["marksman"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- Konfiguration des Tailwind CSS Language Servers
-    lspconfig.tailwindcss.setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    -- Tailwind CSS (mit deinen Settings)
+    vim.lsp.config("tailwindcss", vim.tbl_deep_extend("force", default_opts, {
       settings = {
         tailwindCSS = {
-              validate = true, -- Aktiviert die Validierung
+          validate = true,
           lint = {
-            cssConflict = "warning", -- Konflikte in CSS als Warnungen anzeigen
-            invalidApply = "error", -- Ungültige @apply Direktiven als Fehler anzeigen
-            invalidConfigPath = "error", -- Ungültige Konfigurationspfade als Fehler anzeigen
-            invalidScreen = "error", -- Ungültige @screen Direktiven als Fehler anzeigen
-            invalidTailwindDirective = "error", -- Ungültige Tailwind-Direktiven als Fehler anzeigen
-            invalidVariant = "error", -- Ungültige Varianten als Fehler anzeigen
-            recommendedVariantOrder = "warning" -- Empfohlene Reihenfolge der Varianten als Warnung anzeigen
+            cssConflict = "warning",
+            invalidApply = "error",
+            invalidConfigPath = "error",
+            invalidScreen = "error",
+            invalidTailwindDirective = "error",
+            invalidVariant = "error",
+            recommendedVariantOrder = "warning",
           },
           experimental = {
             classRegex = {
-              'tw`([^`]*)', -- Für `tw`-template literals
-              'tw="([^"]*)', -- Für `tw="..."` in JSX
-              'tw={"([^"}]*)', -- Für `tw={...}` in JSX
-              'tw\\.([^\\s\'"]*)', -- Für `tw.xxx` in JSX
-              'tw\\(.*?\\)', -- Für Funktionen `tw(...)`
+              'tw`([^`]*)',
+              'tw="([^"]*)',
+              'tw={"([^"}]*)',
+              'tw\\.([^\\s\'"]*)',
+              'tw\\(.*?\\)',
             },
           },
-        }
-      }
-    })
+        },
+      },
+    }))
 
-
-    -- configure lua server (with special settings)
-    lspconfig["lua_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = { -- custom settings for lua
+    -- Lua (lua_ls)
+    vim.lsp.config("lua_ls", vim.tbl_deep_extend("force", default_opts, {
+      settings = {
         Lua = {
-          -- make the language server recognize "vim" global
-          diagnostics = {
-            globals = { "vim" },
-          },
+          diagnostics = { globals = { "vim" } },
           workspace = {
-            -- make language server aware of runtime files
             library = {
               [vim.fn.expand("$VIMRUNTIME/lua")] = true,
               [vim.fn.stdpath("config") .. "/lua"] = true,
@@ -173,6 +118,19 @@ return {
           },
         },
       },
-    })
+    }))
+
+    vim.lsp.enable("html")
+    vim.lsp.enable("gopls")
+    vim.lsp.enable("clangd")
+    vim.lsp.enable("ts_ls")
+    vim.lsp.enable("pyright")
+    vim.lsp.enable("ruff")
+    vim.lsp.enable("cssls")
+    vim.lsp.enable("marksman")
+    vim.lsp.enable("templ")
+    vim.lsp.enable("tailwindcss")
+    vim.lsp.enable("lua_ls")
   end,
 }
+
