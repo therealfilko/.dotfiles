@@ -23,7 +23,7 @@ return {
                 "tailwindcss",
                 "lua_ls",
                 "gopls",
-                "ruff", 
+                "ruff"
             },
             automatic_installation = true,
         })
@@ -34,7 +34,7 @@ return {
                 "eslint_d",
                 "mypy",
                 "pyright",
-                "ruff",
+                "ruff"
             },
         })
     end,
