@@ -1,10 +1,10 @@
 # zsh
 
-Powerful but tastefully minimal zsh configuration.
+Leistungsstarke, aber bewusst minimal gehaltene zsh-Konfiguration.
 
-## Dependencies
+## Abhängigkeiten
 
-### Arch
+### Arch Linux
 
 ```sh
 paru -S zsh neovim eza bat fd fzf zoxide starship ripgrep
@@ -14,10 +14,18 @@ paru -S zsh neovim eza bat fd fzf zoxide starship ripgrep
 
 ```sh
 sudo apt install zsh neovim eza bat fd-find fzf ripgrep
-# install zoxide and starship separately
+```
+
+`zoxide` und `starship` müssen unter Ubuntu separat installiert werden:
+
+```sh
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 curl -sS https://starship.rs/install.sh | sh
-# Ubuntu installs bat and fd under different names — symlink them so everything works
+```
+
+Ubuntu installiert `bat` und `fd` unter anderen Namen. Deshalb werden symbolische Verknüpfungen erstellt, damit die Konfiguration funktioniert:
+
+```sh
 ln -s $(which batcat) ~/.local/bin/bat
 ln -s $(which fdfind) ~/.local/bin/fd
 ```
@@ -28,17 +36,19 @@ ln -s $(which fdfind) ~/.local/bin/fd
 brew install zsh neovim eza bat fd fzf zoxide starship ripgrep
 ```
 
-## Setup
+## Einrichtung
 
-**1. Clone the repo**
+### 1. Repository klonen
 
 ```sh
 git clone https://github.com/radleylewis/zsh ~/.config/zsh
 ```
 
-**2. Point zsh at the config directory**
+Dadurch wird die zsh-Konfiguration im Verzeichnis `~/.config/zsh` gespeichert.
 
-Add the following to `/etc/zsh/zshenv`:
+### 2. zsh auf das Konfigurationsverzeichnis verweisen lassen
+
+Folgenden Inhalt in die Datei `/etc/zsh/zshenv` einfügen:
 
 ```sh
 if [[ -z "$XDG_CONFIG_HOME" ]]
@@ -52,52 +62,75 @@ then
 fi
 ```
 
-**3. Set zsh as your default shell**
+Damit wird Folgendes festgelegt:
+
+* Falls `XDG_CONFIG_HOME` noch nicht gesetzt ist, wird `~/.config` verwendet.
+* Falls das Verzeichnis `~/.config/zsh` existiert, verwendet zsh dieses Verzeichnis für seine Konfigurationsdateien.
+* Dateien wie `.zshrc` und `.zshenv` werden anschließend aus `~/.config/zsh` geladen.
+
+### 3. zsh als Standardshell festlegen
 
 ```sh
 chsh -s $(which zsh)
 ```
 
-**4. Create required directories**
+### 4. Benötigte Verzeichnisse erstellen
 
 ```sh
-mkdir -p ~/.local/state/zsh   # history
-mkdir -p ~/.cache/zsh         # completion cache
+mkdir -p ~/.local/state/zsh   # Verlauf
+mkdir -p ~/.cache/zsh         # Cache für Autovervollständigung
 ```
 
-**5. Start a new shell**
+Das erste Verzeichnis wird für den Befehlsverlauf verwendet. Das zweite speichert den Cache der zsh-Autovervollständigung.
 
-Plugins are installed automatically on first launch via the built-in plugin manager.
+### 5. Eine neue Shell starten
+
+Nach dem Neustart des Terminals werden die Plugins beim ersten Start automatisch über den eingebauten Plugin-Manager installiert.
 
 ## Plugins
 
-Managed without a third-party plugin manager. Plugins are cloned into `$ZDOTDIR/plugins/` on first launch.
+Die Plugins werden ohne zusätzlichen Plugin-Manager verwaltet.
 
-| Plugin | Purpose |
-|--------|---------|
-| [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | Syntax highlighting |
-| [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-style inline suggestions |
-| [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) | Up/down arrow history filtering |
-| [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) | Vi keybindings |
+Beim ersten Start werden sie automatisch in folgendes Verzeichnis geklont:
 
-To update all plugins:
+```sh
+$ZDOTDIR/plugins/
+```
+
+| Plugin                                                                                    | Funktion                                                                  |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | Hebt Befehle und Syntax farblich hervor                                   |
+| [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)                   | Zeigt während der Eingabe Vorschläge aus dem bisherigen Verlauf an        |
+| [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) | Durchsucht den Verlauf mit den Pfeiltasten anhand des eingegebenen Textes |
+| [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode)                                  | Aktiviert Vi- beziehungsweise Vim-Tastenkombinationen                     |
+
+Alle Plugins können mit folgendem Befehl aktualisiert werden:
 
 ```sh
 zplugin-update
 ```
 
-## Keybindings
+## Tastenkombinationen
 
-| Key | Action |
-|-----|--------|
-| `Ctrl+R` | Fuzzy history search (fzf) |
-| `Ctrl+T` | Fuzzy file search including hidden files (fzf + fd) |
-| `Ctrl+F` | Fuzzy file search excluding hidden files (fzf + fd) |
-| `Ctrl+→` | Move forward one word |
-| `Ctrl+←` | Move backward one word |
-| `↑` / `↓` | History search by prefix |
-| `Ctrl+\` | Toggle autosuggestions |
+| Taste     | Funktion                                                          |
+| --------- | ----------------------------------------------------------------- |
+| `Ctrl+R`  | Unscharfe Suche im Befehlsverlauf mit `fzf`                       |
+| `Ctrl+T`  | Dateisuche mit `fzf` und `fd`, einschließlich versteckter Dateien |
+| `Ctrl+F`  | Dateisuche mit `fzf` und `fd`, ohne versteckte Dateien            |
+| `Ctrl+→`  | Ein Wort nach vorne springen                                      |
+| `Ctrl+←`  | Ein Wort zurückspringen                                           |
+| `↑` / `↓` | Verlauf anhand des bereits eingegebenen Präfixes durchsuchen      |
+| `Ctrl+\`  | Automatische Vorschläge ein- oder ausschalten                     |
 
-## Starship Config
+## Starship-Konfiguration
 
-Included in the repo at [`starship.toml`](./starship.toml) and loaded automatically via `STARSHIP_CONFIG` in `.zshenv`. Requires a [Nerd Font](https://www.nerdfonts.com) in your terminal.
+Die Konfiguration für Starship befindet sich im Repository in der Datei:
+
+```text
+starship.toml
+```
+
+Sie wird automatisch über die Variable `STARSHIP_CONFIG` in der Datei `.zshenv` geladen.
+
+Damit alle Symbole korrekt dargestellt werden, muss im Terminal eine [Nerd Font](https://www.nerdfonts.com) eingestellt sein.
+
