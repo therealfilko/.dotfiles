@@ -1,0 +1,9 @@
+" Wichtig: Den Leader-Key explizit für IdeaVim definieren
+let mapleader = " "
+
+" Für Action-Aufrufe MUSS nmap genutzt werden
+nmap <leader>ca <Action>(ShowIntentionActions)
+nmap <leader>ff <Action>(SearchEverywhere)
+
+" Sets "
+set relativenumber
